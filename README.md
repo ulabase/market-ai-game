@@ -5,7 +5,7 @@ goods, until one of them wins. They negotiate through a public ledger, cheat nob
 cannot, and discover how to play by asking the server what it offers.
 
 **There is no application code.** No service, no controller, no validation layer, no business
-logic. There is a data model, the rules that keep it consistent, and one prompt. RESTHeart Cloud
+logic. There is a data model, the rules that keep it consistent, and one prompt. Ulabase
 turns that into an API and publishes it over MCP, and the agents are the user interface.
 
 ```mermaid
@@ -16,7 +16,7 @@ flowchart TD
         C["commentator"] --> T1["trader1"] & T2["trader2"] & T3["trader3"]
     end
     claude -- "MCP" --> rh
-    subgraph rh ["RESTHeart Cloud — configuration, not code"]
+    subgraph rh ["Ulabase — configuration, not code"]
         direction LR
         M["MCP server"] --> G["permissions<br/>JSON Schema<br/>8 constraints"]
         G --> L[("market_events<br/><i>append-only</i>")]
@@ -29,7 +29,7 @@ flowchart TD
 
 | An application would write | The game declares instead |
 |---|---|
-| a service to accept a move | a collection, `market_events`, published by RESTHeart |
+| a service to accept a move | a collection, `market_events`, published by the service |
 | input validation | a JSON Schema on that collection |
 | business rules | eight constraints, each an aggregation run inside the write's transaction |
 | authentication and roles | seven permissions, which also stamp who wrote what |
@@ -45,17 +45,17 @@ domain, declare what must stay true, and the application is there.**
 
 ## Play it
 
-You need a RESTHeart Cloud service, Node 22.18 or later, and Claude. Use a **fresh** service: one
+You need a Ulabase service, Node 22.18 or later, and Claude. Use a **fresh** service: one
 set up for another app carries that app's rules, and they apply here too.
 
 ### 1. Set up the service
 
-Generate a personal access token at https://cloud.restheart.com/me/tokens, then:
+Generate a personal access token at https://ulabase.com/me/tokens, then:
 
 ```bash
 npm install
-npx rhc login                # paste the token
-npx rhc setup --srv <srvId>  # the six characters at the start of your service URL
+npx ulabase login                # paste the token
+npx ulabase setup --srv <srvId>  # the six characters at the start of your service URL
 ```
 
 Wait about 20 seconds for the permissions to take effect. Run it again whenever you edit the game;
@@ -86,7 +86,7 @@ Attach the resource ending in `/market_events/_aggrs/board` and subscribe to the
 One line, pasted into Claude:
 
 ```
-Fetch the raw text of https://raw.githubusercontent.com/SoftInstigate/restheart/9.x/examples/market-game/agents/game.md, in full and not summarized, and do what it says.
+Fetch the raw text of https://raw.githubusercontent.com/ulabase/market-ai-game/main/agents/game.md, in full and not summarized, and do what it says.
 ```
 
 Claude becomes the commentator and runs the match in rounds: each round it starts three subagents,
@@ -108,7 +108,7 @@ frames a second.
 The password is published, so a service left set up is a service anybody can write to:
 
 ```bash
-npx rhc setup --srv <srvId> --file rhc.close.ts
+npx ulabase setup --srv <srvId> --file ulabase.close.ts
 ```
 
 It revokes the three rules that allow a write. Reading stays, so the page still draws the finished
@@ -137,8 +137,8 @@ when a client can hold a credential of its own, give it an account of its own.
 
 | File | What it is |
 |---|---|
-| `rhc.setup.ts` | what the service must have, as steps that check and apply |
-| `rhc.close.ts` | the same for a service nobody is playing on: revokes every write |
+| `ulabase.setup.ts` | what the service must have, as steps that check and apply |
+| `ulabase.close.ts` | the same for a service nobody is playing on: revokes every write |
 | `game/schema.ts` | the JSON Schema for ledger events |
 | `game/ledger.ts` | the derivation, the four aggregations, the change stream, the endowments |
 | `game/rules.ts` | the eight constraints |
@@ -154,6 +154,6 @@ when a client can hold a credential of its own, give it an account of its own.
 The console shows all of it: the rules on the **Constraints** page, where **Run** tries each against
 the data, and the resources on the **MCP Server** page.
 
-More in the RESTHeart Cloud manual: [MCP Server](https://restheart.org/docs/cloud/mcp), [Data
-Constraints](https://restheart.org/docs/cloud/constraints), [the `rhc`
-CLI](https://restheart.org/docs/cloud/cli).
+More in the Ulabase manual: [MCP Server](https://ulabase.com/docs/mcp), [Data
+Constraints](https://ulabase.com/docs/constraints), [the `ulabase`
+CLI](https://ulabase.com/docs/cli).

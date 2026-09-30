@@ -173,13 +173,13 @@
     <h2>The table's credentials</h2>
     <div class="row">
       <div class="f-url"><label for="url">Service URL</label>
-        <input type="text" id="url" placeholder="https://xxxxxx.eu-central-1-shared-1.restheart.com" spellcheck="false"></div>
+        <input type="text" id="url" placeholder="https://xxxxxx.nodes.ulabase.com" spellcheck="false"></div>
       <div class="f-s"><label for="user">User</label><input type="text" id="user" value="table" spellcheck="false"></div>
       <div class="f-s"><label for="pass">Password</label><input type="password" id="pass" value="Aged-Harbour-Kettle-7"></div>
       <button id="connect">Watch</button>
     </div>
     <div class="err hidden" id="error"></div>
-    <div class="hint">The account the game is played through, created by <code>rhc setup</code>. Its password is filled in
+    <div class="hint">The account the game is played through, created by <code>ulabase setup</code>. Its password is filled in
       already, because it is the same for every game and is in the open in <code>game/reference.ts</code>. Change it there and
       here if you change it on the service. Nothing is sent anywhere but your own service, and it stays in this browser.</div>
   </section>
@@ -272,7 +272,7 @@ const tsOf = e => (e ? millis(e.ts) : null);
 
 /**
  * An error the loop must not retry. Polling a service that refuses the credentials is how a
- * mistyped password becomes a brute-force alarm: RESTHeart blocks an address after five failed
+ * mistyped password becomes a brute-force alarm: the service blocks an address after five failed
  * sign-ins in ten seconds, and a page retrying every few seconds gets there on its own.
  */
 function fatal(message) { const e = new Error(message); e.fatal = true; return e; }
@@ -643,7 +643,7 @@ function renderWinner(board, events) {
   const at = claim && tsOf(claim) ? ' at ' + new Date(tsOf(claim)).toLocaleTimeString() : '';
   el.innerHTML = '<strong>' + esc(String(who)) + ' claimed victory' + at + '.</strong> ' +
     'The ledger is append-only, so the board stays as it was won. Reset it with ' +
-    '<code>rhc setup --srv &lt;srvId&gt; --force game</code> for a rematch.';
+    '<code>ulabase setup --srv &lt;srvId&gt; --force game</code> for a rematch.';
   el.classList.remove('hidden');
   return true;
 }

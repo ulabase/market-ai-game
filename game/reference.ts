@@ -2,7 +2,7 @@
  * The reference data: what can be traded, who is playing, and what each player is after.
  *
  * Game design, not user content — so unlike the ledger it is re-applied whenever it differs
- * from what the service holds. Edit an objective here and the next `rhc setup` writes it.
+ * from what the service holds. Edit an objective here and the next `ulabase setup` writes it.
  */
 
 /** Every collection the game uses, in one place, because the ACL has to name each of them. */

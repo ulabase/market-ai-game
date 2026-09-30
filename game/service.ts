@@ -2,8 +2,8 @@
  * The few things both setups need to talk to a service: compare what is there with what is meant,
  * and write only when they differ.
  */
-import { isApiError } from '@restheart-cloud/cli';
-import type { ServiceClient } from '@restheart-cloud/cli';
+import { isApiError } from '@ulabase/cli';
+import type { ServiceClient } from '@ulabase/cli';
 
 export type Doc = Record<string, unknown>;
 

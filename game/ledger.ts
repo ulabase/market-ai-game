@@ -28,7 +28,7 @@ const isObject = (field: string) => ({ $eq: [{ $type: field }, 'object'] });
 /**
  * A time as an ISO-8601 string rather than `{"$date": 1789803391000}`.
  *
- * The wrapped form is RESTHeart's faithful rendering of a BSON date and there is nothing wrong
+ * The wrapped form is the service's faithful rendering of a BSON date and there is nothing wrong
  * with it, but every reader of this game — an agent, a browser, a person — wants to read the
  * time, not to unwrap it first. The ledger keeps real dates; only what is derived is flattened.
  */
@@ -387,7 +387,7 @@ const pricesFor = {
  * read, and that question carries no arguments.
  *
  * The objectives are written into the pipeline rather than read from their collection, because
- * `$lookup` is refused: RESTHeart blacklists it in aggregations. The same table already appears in
+ * `$lookup` is refused: the service blacklists it in aggregations. The same table already appears in
  * the claimIsEarned rule, built from the same seed, so the two cannot drift.
  */
 /** player + secret → that player's objective, as pipeline branches. See the note on myState. */

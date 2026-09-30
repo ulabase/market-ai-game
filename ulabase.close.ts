@@ -1,8 +1,8 @@
 /**
  * Close the game, and leave the record standing.
  *
- *   rhc setup --srv <srvId> --file rhc.close.ts            # revoke every write
- *   rhc setup --srv <srvId> --file rhc.close.ts --dry-run  # say what is still open
+ *   ulabase setup --srv <srvId> --file ulabase.close.ts            # revoke every write
+ *   ulabase setup --srv <srvId> --file ulabase.close.ts --dry-run  # say what is still open
  *
  * The account everybody plays through has a password printed in this repository, on purpose: it
  * is how three agents behind one connector prove who is speaking. That is fine while a match is
@@ -15,11 +15,11 @@
  * lists it. The ledger was append-only and is now not even that — history is closed, and a
  * password in the open buys nothing but a look.
  *
- * To play again, run the ordinary setup: `rhc setup --srv <srvId>` puts the rules back, and
+ * To play again, run the ordinary setup: `ulabase setup --srv <srvId>` puts the rules back, and
  * `--force game` deals a fresh board. To close the service completely instead, delete the `table`
  * user in the console; nothing else on the service answers to that password.
  */
-import { defineSetup, step } from '@restheart-cloud/cli';
+import { defineSetup, step } from '@ulabase/cli';
 
 import { remove, stored } from './game/service.ts';
 import { TRADERS } from './game/reference.ts';

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Plays the moves that must work and the moves that must be refused, as the three traders, and
-# checks every answer. Run it after `rhc setup`, and again after every change to the rules.
+# checks every answer. Run it after `ulabase setup`, and again after every change to the rules.
 #
-#   MCP_BASE=https://<srvId>.<region>.restheart.com ./agents/smoke.sh
+#   MCP_BASE=https://<srvId>.nodes.ulabase.com ./agents/smoke.sh
 #
-# It appends to the ledger. Start from a fresh game (`rhc setup --srv <id> --force game`) to
+# It appends to the ledger. Start from a fresh game (`ulabase setup --srv <id> --force game`) to
 # see the same result twice.
 set -uo pipefail
 
@@ -27,7 +27,7 @@ BASE="${BASE%/}"
 # "000" on every line otherwise, which says nothing about why.
 if ! err="$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/ping" 2>&1)" || [ "$err" != 200 ]; then
   echo "cannot reach $BASE/ping: ${err:-no answer}" >&2
-  echo "MCP_BASE must be the service URL from the console's Connect page, scheme included, e.g. https://d36c92.eu-central-1-free-1.restheart.com" >&2
+  echo "MCP_BASE must be the service URL from the console's Connect page, scheme included, e.g. https://d36c92.nodes.ulabase.com" >&2
   exit 1
 fi
 
@@ -37,8 +37,8 @@ probe="$(curl -s -o /dev/null -w '%{http_code}' -u "$TABLE_USER:$TABLE_PASSWORD"
   "$BASE/market_objectives?trader=trader1&secret=$(secret_of trader1)")"
 case "$probe" in
   200) ;;
-  401) echo "the table account cannot sign in (401): it was never created — run rhc setup." >&2; exit 1 ;;
-  403) echo "trader1 is refused (403): the permissions are not in effect yet. They take up to 20 seconds after rhc setup; try again." >&2; exit 1 ;;
+  401) echo "the table account cannot sign in (401): it was never created — run ulabase setup." >&2; exit 1 ;;
+  403) echo "trader1 is refused (403): the permissions are not in effect yet. They take up to 20 seconds after ulabase setup; try again." >&2; exit 1 ;;
   451) echo "trader1 is blocked (451): this service has a Guards rule — the consents gate of another app's setup — that stops every user who has not accepted its terms, the traders included." >&2
        echo "Use a fresh service for the game, or exempt role 'trader' in that rule (console → Guards)." >&2; exit 1 ;;
   *)   echo "trader1 gets $probe reading /market_objectives; something is off with the service before the game even starts." >&2; exit 1 ;;
@@ -56,7 +56,7 @@ except Exception: print(-1)')"
 
 if [ "$events" -gt 3 ] 2>/dev/null; then
   echo "the ledger already holds $events events: these checks need the opening position." >&2
-  echo "Deal a fresh board first:  npx rhc setup --srv <srvId> --force game" >&2
+  echo "Deal a fresh board first:  npx ulabase setup --srv <srvId> --force game" >&2
   exit 1
 fi
 

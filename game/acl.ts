@@ -84,7 +84,7 @@ export const PERMISSIONS: Record<string, Record<string, unknown>> = {
     // sent reads as empty and matches neither, so leaving one out is a refusal and not a way past.
     //
     // `%{q,name}` is Undertow's own query-parameter attribute, read when the predicate runs.
-    // Not RESTHeart's `@qparams['name']`: that one is substituted into the predicate *text*
+    // Not the `@qparams['name']` variable: that one is substituted into the predicate *text*
     // before it is parsed, and a permission is parsed once when it is loaded, when the brackets
     // are still there — Undertow uses brackets for its own parameter lists and refuses the
     // string, so the permission is dropped and every request it should have allowed is a 403.

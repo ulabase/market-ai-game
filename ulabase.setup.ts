@@ -1,9 +1,9 @@
 /**
- * What the market game needs from a RESTHeart Cloud service.
+ * What the market game needs from a Ulabase service.
  *
- *   rhc setup --srv <srvId>              # configure, or confirm nothing is missing
- *   rhc setup --srv <srvId> --dry-run    # only say what is missing
- *   rhc setup --srv <srvId> --force game # wipe the ledger and start a fresh game
+ *   ulabase setup --srv <srvId>              # configure, or confirm nothing is missing
+ *   ulabase setup --srv <srvId> --dry-run    # only say what is missing
+ *   ulabase setup --srv <srvId> --force game # wipe the ledger and start a fresh game
  *
  * Every step is a `check` and an `apply`. Against a configured service this writes nothing
  * and reports each step satisfied — which is what makes it safe to run after every edit.
@@ -17,7 +17,7 @@
  * players' secrets, in the open, because this is a game. It is read the first time only, since an
  * account that exists is left alone.
  */
-import { defineSetup, step, isApiError } from '@restheart-cloud/cli';
+import { defineSetup, step, isApiError } from '@ulabase/cli';
 
 import { holds, json, put, type Doc } from './game/service.ts';
 
@@ -150,7 +150,7 @@ export default defineSetup('Market game', [
      * ledger holds nothing else. A game in progress is satisfied, and a re-run after editing a
      * permission does not wipe it.
      *
-     * To start over: `rhc setup --srv <srvId> --force game`. The apply wipes the ledger and
+     * To start over: `ulabase setup --srv <srvId> --force game`. The apply wipes the ledger and
      * seeds it again; the re-check then finds the endowments and reports it applied.
      */
     async check({ service }) {

@@ -4,7 +4,7 @@
  * Over REST that would be one read per player; here it is one round trip. `me` resolves to
  * whoever is authenticated, server-side.
  *
- * The mappings name the database, and on RESTHeart Cloud that is the service's own — its id —
+ * The mappings name the database, and on Ulabase that is the service's own — its id —
  * which is why this is a function of `srvId` rather than a constant.
  */
 import { LEDGER } from './ledger.ts';
