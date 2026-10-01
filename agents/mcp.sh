@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # A minimal MCP client, for checking the game from a terminal. The agents use the connector.
 #
-#   MCP_BASE=https://<srvId>.nodes.ulabase.com ./mcp.sh <method> [params-json]
+#   MCP_BASE=https://<srvId>.ulabase.app ./mcp.sh <method> [params-json]
 #
 #   ./mcp.sh tools/list
 #   ./mcp.sh tools/call     '{"name":"list_apis","arguments":{}}'
@@ -17,7 +17,7 @@
 # The session id is cached and re-established if the server has forgotten it.
 set -euo pipefail
 
-BASE="${MCP_BASE:?set MCP_BASE to your service URL, the one shown on the Connect page in the console, e.g. https://abc123.nodes.ulabase.com}"
+BASE="${MCP_BASE:?set MCP_BASE to your service URL, the one shown on the Connect page in the console, e.g. https://abc123.ulabase.app}"
 # the account and its password are in game/reference.ts, in the open: it is a game
 USER_ID="table"; PASSWORD="Aged-Harbour-Kettle-7"; METHOD="$1"; PARAMS="${2-}"
 [ -n "$PARAMS" ] || PARAMS='{}'

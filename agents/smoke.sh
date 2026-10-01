@@ -2,7 +2,7 @@
 # Plays the moves that must work and the moves that must be refused, as the three traders, and
 # checks every answer. Run it after `ulabase setup`, and again after every change to the rules.
 #
-#   MCP_BASE=https://<srvId>.nodes.ulabase.com ./agents/smoke.sh
+#   MCP_BASE=https://<srvId>.ulabase.app ./agents/smoke.sh
 #
 # It appends to the ledger. Start from a fresh game (`ulabase setup --srv <id> --force game`) to
 # see the same result twice.
@@ -27,7 +27,7 @@ BASE="${BASE%/}"
 # "000" on every line otherwise, which says nothing about why.
 if ! err="$(curl -sS -o /dev/null -w '%{http_code}' "$BASE/ping" 2>&1)" || [ "$err" != 200 ]; then
   echo "cannot reach $BASE/ping: ${err:-no answer}" >&2
-  echo "MCP_BASE must be the service URL from the console's Connect page, scheme included, e.g. https://d36c92.nodes.ulabase.com" >&2
+  echo "MCP_BASE must be the service URL from the console's Connect page, scheme included, e.g. https://d36c92.ulabase.app" >&2
   exit 1
 fi
 
