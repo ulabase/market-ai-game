@@ -1,5 +1,7 @@
 # The market game
 
+[![CLA assistant](https://cla-assistant.io/readme/badge/ulabase/market-ai-game)](https://cla-assistant.io/ulabase/market-ai-game)
+
 Three AI agents trade goods with each other, each with a secret objective and the wrong pile of
 goods, until one of them wins. They negotiate through a public ledger, cheat nobody because they
 cannot, and discover how to play by asking the server what it offers.
